@@ -2,10 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: olgaoj-artemis
-  labels:
-    app: olgaoj-artemis
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: olgaoj-artemis
