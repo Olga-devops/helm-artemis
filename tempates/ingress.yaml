@@ -1,16 +1,20 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: olga-artemis
-  # annotations:
-   # nginx.ingress.kubernetes.io/rewrite-target: /
+  name: artemis
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
 spec:
   rules:
   - host: {{ .Values.endpoint }}
-  - http:
+  - http: 
       paths:
       - path: /
-        # pathType: Prefix
         backend:
-          serviceName: olga-artemis
+          serviceName: artemis
           servicePort: 80
+  tls:
+  - hosts:
+    - {{ .Values.endpoint }}
+    secretName: dashboard-proxy-tls
